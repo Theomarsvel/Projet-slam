@@ -10,19 +10,17 @@ create table client(
 	Nom varchar(20),
 	Prenom varchar(20),
 	MDP varchar(20) not null,
-	Email varchar(50) not null,
+	Email varchar(50) not null primary key,
 	Adresse_livraison varchar(50) not null,
-	primary key (Nom,Prenom)
 );
 
 create table commande(
 	Id int auto_increment primary key,
 	Date date,
 	Statut varchar(10) not null,
-	Montant_total int,
-	Nom_client varchar(20),
-	Prenom_client varchar(20),
-	foreign key (Nom_client, Prenom_client) references client(Nom, Prenom)
+	Prix_total int,
+	Email_client varchar(50),
+	foreign key (Email_client) references client(Email)
 );
 
 create table categorie(
@@ -34,6 +32,7 @@ create table produit(
 	Id int auto_increment primary key,
 	Nom varchar(20) not null,
 	Description varchar(100),
+	Ingredient varchar(100),
 	Prix int not null,
 	Stock tinyint not null,
 	ID_categorie int,

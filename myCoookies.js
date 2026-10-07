@@ -33,3 +33,21 @@ app.get('/myCookies-client', (req, res) => {
         }
     })
 })
+
+app.post('/myCookies-client', (req, res) => {
+    const { Nom, Prenom, MDP, Email } = req.body;
+
+    console.log(`Creation du compte de ${nom} ${prenom} avec adresse email ${email}`);
+    const requeteSQL = `INSERT INTO tlivre (Nom, Prenom, MDP, Email) VALUES (${nom}, "${prenom}", "${mdp}", ${email})`;
+    console.log("Requete : " + requeteSQL);
+
+    mysqlconnexion.query(requeteSQL, (err) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect("/myCookies-client");
+        } else {
+            console.log("Erreur lors de l'enregistrement");
+            res.send("Erreur ajout : " + JSON.stringify(err));
+        }
+    });
+});

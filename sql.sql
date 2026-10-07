@@ -11,7 +11,6 @@ create table client(
 	Prenom varchar(20),
 	MDP varchar(20) not null,
 	Email varchar(50) not null primary key,
-	Adresse_livraison varchar(50) not null,
 );
 
 create table commande(
@@ -20,6 +19,7 @@ create table commande(
 	Statut varchar(10) not null,
 	Prix_total int,
 	Email_client varchar(50),
+	Adresse_livraison varchar(50) not null,
 	foreign key (Email_client) references client(Email)
 );
 

@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/myCookies-client', (req, res) => {
-    mysqlconnexion.query('SELECT * FROM tlivre', (err, lignes, champs) => {
+    mysqlconnexion.query('SELECT * FROM clients', (err, lignes, champs) => {
         if (!err) {
             console.log(lignes)
             res.send(lignes)
@@ -38,7 +38,7 @@ app.post('/myCookies-client', (req, res) => {
     const { Nom, Prenom, MDP, Email } = req.body;
 
     console.log(`Creation du compte de ${nom} ${prenom} avec adresse email ${email}`);
-    const requeteSQL = `INSERT INTO tlivre (Nom, Prenom, MDP, Email) VALUES (${nom}, "${prenom}", "${mdp}", ${email})`;
+    const requeteSQL = `INSERT INTO client (Nom, Prenom, MDP, Email) VALUES (${nom}, "${prenom}", "${mdp}", ${email})`;
     console.log("Requete : " + requeteSQL);
 
     mysqlconnexion.query(requeteSQL, (err) => {
@@ -51,3 +51,17 @@ app.post('/myCookies-client', (req, res) => {
         }
     });
 });
+
+app.delete('/myCookies-client/:email', (req, res) => {
+    let critere = req.params.email
+    console.log("email = " + critere)
+    mysqlconnexion.query('DELETE FROM client WHERE Email = ?', [critere], (err, lignes, champs) => {
+        if (!err) {
+            console.log("Effacement terminé")
+            res.send("Effacement terminé")
+        } else {
+            console.log("Erreur lors de l'effacement")
+            res.send("Erreur effacement : " + JSON.stringify(err))
+        }
+    })
+})

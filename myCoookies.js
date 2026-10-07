@@ -18,8 +18,18 @@ mysqlconnexion.connect((err) => {
 // activer les middlewares natifs Express et lancer l'application sur le port 3000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.listen(3000, () => console.log('le serveur Magazin est pret.'))
+app.listen(3000, () => console.log('le serveur myCoookies est pret.'))
 // utiliser les routes
 app.get('/', (req, res) => {
-    res.send('Magazin est actif')
+    res.send('myCoookies est actif')
+})
+
+
+app.get('/myCookies-client', (req, res) => {
+    mysqlconnexion.query('SELECT * FROM tlivre', (err, lignes, champs) => {
+        if (!err) {
+            console.log(lignes)
+            res.send(lignes)
+        }
+    })
 })

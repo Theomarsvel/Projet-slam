@@ -46,3 +46,10 @@ create table contient(
 	foreign key (Id_commande) references commande(Id),
 	foreign key (Id_produit) references produit(Id)
 );
+
+insert into client (Nom, Prenom, MDP, Email, Adresse_livraison) values
+('Martin',   'Lucas',   'lucas2024',   'lucas.martin@mail.fr',   '12 rue des Alpes, 38000 Grenoble'),
+('Bernard',  'Emma',    'emma_cookie', 'emma.bernard@mail.fr',   '5 avenue Jean Jaurès, 38100 Grenoble'),
+('Dubois',   'Hugo',    'hugo38',      'hugo.dubois@mail.fr',    '27 cours Berriat, 38000 Grenoble'),
+('Thomas',   'Léa',     'lea12345',    'lea.thomas@mail.fr',     '8 rue Lesdiguières, 38000 Grenoble'),
+('Robert',   'Louis',   'louis_r',     'louis.robert@mail.fr',   '3 place Grenette, 38000 Grenoble');

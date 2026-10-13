@@ -8,6 +8,14 @@ export const lire = (req, res) => {
     res.render('Mycoockies', { erreur: null })
 }
 
+export const connexion = (req, res) => {
+    res.render('connexion', { erreur: null })
+}
+
+export const inscription = (req, res) => {
+    res.render('inscription', { erreur: null })
+}
+
 // POST : traite le formulaire
 export const creer = async (req, res) => {
     try {
@@ -47,4 +55,3 @@ export const read_bdd = async (req, res) => {
     }
 };
 
-export const connexion = async (req, res) => {res.render('connexion')};

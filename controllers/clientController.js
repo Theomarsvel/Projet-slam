@@ -31,3 +31,12 @@ export const creer = async (req, res) => {
         res.status(500).render('inscription', { erreur: 'Erreur serveur.' })
     }
 }
+
+export const read_bdd = (req, res) => {
+    mysqlconnexion.query('SELECT * FROM clients', (err, lignes, champs) => {
+        if (!err) {
+            console.log(lignes)
+            res.send(lignes)
+        }
+    })
+}

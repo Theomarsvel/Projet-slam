@@ -5,15 +5,15 @@ import { read_bdd as lireClients } from '../models/bdd.js';
 
 // GET : affiche le formulaire
 export const lire = (req, res) => {
-    res.render('Mycoockies', { erreur: null })
+    return res.render('Mycoockies', { erreur: null })
 }
 
 export const connexion = (req, res) => {
-    res.render('connexion', { erreur: null })
+    return res.render('connexion', { erreur: null })
 }
 
 export const inscription = (req, res) => {
-    res.render('inscription', { erreur: null })
+    return res.render('inscription', { erreur: null })
 }
 
 // POST : traite le formulaire

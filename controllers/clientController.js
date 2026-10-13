@@ -18,7 +18,7 @@ export const creer = async (req, res) => {
         }
 
         if (await bdd.trouverParEmail(email)) {
-            res.render('echec', { email })
+            return res.render('erreur/echec', { email })
             //return res.status(409).render('inscription', { erreur: 'Cet email est déjà utilisé.' })
             //res.render('echec', { email })
         }
@@ -26,14 +26,14 @@ export const creer = async (req, res) => {
         const mdpHash = await bcrypt.hash(mdp, 10)
         await bdd.creerClient({ nom, prenom, mdpHash, email, adresse })
 
-        res.render('succes', { prenom })
+        return res.render('succes', { prenom })
     } catch (err) {
         if (err.code === 'ER_DUP_ENTRY') {
             return res.status(409).render('inscription', { erreur: 'Ce client existe déjà.' })
         }
         console.error(err)
         res.status(500).render('inscription', { erreur: 'Erreur serveur.' })
-        res.render('echec', { email })
+        res.render('erreur/echec', { email })
     }
 }
 

@@ -18,7 +18,9 @@ export const creer = async (req, res) => {
         }
 
         if (await bdd.trouverParEmail(email)) {
-            return res.status(409).render('inscription', { erreur: 'Cet email est déjà utilisé.' })
+            res.render('echec', { email })
+            //return res.status(409).render('inscription', { erreur: 'Cet email est déjà utilisé.' })
+            //res.render('echec', { email })
         }
 
         const mdpHash = await bcrypt.hash(mdp, 10)
@@ -31,6 +33,7 @@ export const creer = async (req, res) => {
         }
         console.error(err)
         res.status(500).render('inscription', { erreur: 'Erreur serveur.' })
+        res.render('echec', { email })
     }
 }
 

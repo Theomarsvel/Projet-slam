@@ -11,10 +11,8 @@ app.get('/', controleur.lire)
 app.get('/bdd', controleur.read_bdd)
 
 app.get('/connexion', controleur.connexion)
-app.post('/connexion', controleur.connexion)
-
+app.get('/inscription', controleur.inscription)   
 app.post('/inscription', controleur.creer)
-app.post('/inscription', controleur.inscription)
 
 app.listen(3000, () => console.log('Serveur Mycookies sur http://localhost:3000'))
 

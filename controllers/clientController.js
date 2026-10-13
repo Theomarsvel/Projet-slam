@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import * as bdd from '../models/bdd.js'
 
+
 // GET : affiche le formulaire
 export const lire = (req, res) => {
     res.render('Mycoockies', { erreur: null })
@@ -33,10 +34,4 @@ export const creer = async (req, res) => {
 }
 
 export const read_bdd = (req, res) => {
-    mysqlconnexion.query('SELECT * FROM clients', (err, lignes, champs) => {
-        if (!err) {
-            console.log(lignes)
-            res.send(lignes)
-        }
-    })
-}
+    res.render(bdd.read_bdd())}

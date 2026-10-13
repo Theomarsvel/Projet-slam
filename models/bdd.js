@@ -23,14 +23,16 @@ export const trouverParEmail = async (email) => {
     return rows[0]
 }
 
-export const read_bdd = (req, res) => {
-    connexion.query('SELECT * FROM client', (err, lignes, champs) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Erreur lors de la lecture des clients');
-        }
+export const read_bdd = async () => {
+    try {
+        const [lignes] = await connexion.query(
+            'SELECT * FROM client'
+        );
 
         console.log(lignes);
-        res.send(lignes);
-    });
+        return lignes;
+    } catch (err) {
+        console.error('Erreur SQL :', err);
+        throw err;
+    }
 };

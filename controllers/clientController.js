@@ -33,5 +33,14 @@ export const creer = async (req, res) => {
     }
 }
 
-export const read_bdd = (req, res) => {
-    res.render(bdd.read_bdd())}
+import { read_bdd as lireClients } from '../models/bdd.js';
+
+export const read_bdd = async (req, res) => {
+    try {
+        const lignes = await lireClients();
+        res.send(lignes);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la lecture des clients');
+    }
+};

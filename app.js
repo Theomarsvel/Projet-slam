@@ -1,5 +1,5 @@
 import express from 'express'
-import * as controleur from './controllers/controleur.js'
+import * as controleur from './controllers/clientController.js'
 
 const app = express()
 

@@ -1,6 +1,6 @@
 // inclure les dépendances (plus besoin de body-parser !)
 import mysql from 'mysql2'
-import express from 'expresse'
+import express from 'express'
 import iniparser from 'iniparser'
 // activer les dépendances
 const configDB = iniparser.parseSync('./DB.ini')

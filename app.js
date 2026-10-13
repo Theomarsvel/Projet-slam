@@ -10,5 +10,6 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', controleur.lire)
 app.post('/', controleur.creer)
 app.get('/bdd', controleur.read_bdd)
+app.get('connexion', controleur.connexion)
 
 app.listen(3000, () => console.log('Serveur Mycookies sur http://localhost:3000'))

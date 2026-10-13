@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import * as bdd from '../models/bdd.js'
+import { read_bdd as lireClients } from '../models/bdd.js';
 
 
 // GET : affiche le formulaire
@@ -33,8 +34,6 @@ export const creer = async (req, res) => {
     }
 }
 
-import { read_bdd as lireClients } from '../models/bdd.js';
-
 export const read_bdd = async (req, res) => {
     try {
         const lignes = await lireClients();
@@ -44,3 +43,5 @@ export const read_bdd = async (req, res) => {
         res.status(500).send('Erreur lors de la lecture des clients');
     }
 };
+
+export const connexion = async (req, res) => {res.render('connexion')};

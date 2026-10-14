@@ -11,6 +11,7 @@ app.get('/', controleur.lire)
 app.get('/bdd', controleur.read_bdd)
 
 app.get('/connexion', controleur.connexion)
+app.post('/connexion', controleur.connexionPost)
 app.get('/inscription', controleur.inscription)   
 app.post('/inscription', controleur.creer)
 

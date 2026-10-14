@@ -34,7 +34,7 @@ export const creer = async (req, res) => {
         const mdpHash = await bcrypt.hash(mdp, 10)
         await bdd.creerClient({ nom, prenom, mdpHash, email, adresse })
 
-        return res.render('succes', { prenom })
+        return res.render('success/succes', { prenom })
     } catch (err) {
         if (err.code === 'ER_DUP_ENTRY') {
             return res.status(409).render('inscription', { erreur: 'Ce client existe déjà.' })
@@ -55,3 +55,30 @@ export const read_bdd = async (req, res) => {
     }
 };
 
+// POST : vérifie les identifiants
+export const connexionPost = async (req, res) => {
+    try {
+        const { email, mdp } = req.body
+
+        if (!email || !mdp) {
+            return res.status(400).render('connexion', { erreur: 'Email et mot de passe obligatoires.' })
+        }
+
+        const client = await bdd.trouverParEmail(email)
+
+        // Même message si l'email n'existe pas ou si le mot de passe est faux
+        if (!client) {
+            return res.status(401).render('connexion', { erreur: 'Email ou mot de passe incorrect.' })
+        }
+
+        const valide = await bcrypt.compare(mdp, client.MDP)   
+        if (!valide) {
+            return res.status(401).render('connexion', { erreur: 'Email ou mot de passe incorrect.' })
+        }
+
+        return res.render('success/co_succes', { prenom: client.prenom })
+    } catch (err) {
+        console.error(err)
+        return res.status(500).render('connexion', { erreur: 'Erreur serveur.' })
+    }
+}

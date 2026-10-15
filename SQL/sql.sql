@@ -13,6 +13,17 @@ create table client(
 	Adresse_livraison varchar(50) not null
 );
 
+create table produit(
+	Id int auto_increment primary key,
+	Nom varchar(20) not null,
+	Description varchar(100),
+	Ingredient varchar(100),
+	Prix int not null,
+	Stock tinyint not null,
+	ID_categorie int,
+	foreign key (Id_categorie) references categorie(Id)
+);
+
 create table commande(
 	Id int auto_increment primary key,
 	Date date,
@@ -25,17 +36,6 @@ create table commande(
 create table categorie(
 	Id int auto_increment primary key,
 	Nom varchar(20) not null
-);
-
-create table produit(
-	Id int auto_increment primary key,
-	Nom varchar(20) not null,
-	Description varchar(100),
-	Ingredient varchar(100),
-	Prix int not null,
-	Stock tinyint not null,
-	ID_categorie int,
-	foreign key (Id_categorie) references categorie(Id)
 );
 
 create table contient(

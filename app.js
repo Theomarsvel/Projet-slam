@@ -15,5 +15,9 @@ app.post('/connexion', controleur.connexionPost)
 app.get('/inscription', controleur.inscription)   
 app.post('/inscription', controleur.creer)
 
+app.get('/manage', controleur.manage)
+app.post('/manage/supprimer', controleur.supprimer)
+app.post('/manage/modifier', controleur.modifier)
+
 app.listen(3000, () => console.log('Serveur Mycookies sur http://localhost:3000'))
 

@@ -82,3 +82,36 @@ export const connexionPost = async (req, res) => {
         return res.status(500).render('connexion', { erreur: 'Erreur serveur.' })
     }
 }
+
+
+
+export const manage = async (req, res) => {
+    try {
+        const clients = await lireClients()
+        return res.render('manage', { clients, message: req.query.message || null })
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send('Erreur lors de la lecture des clients')
+    }
+}
+
+export const supprimer = async (req, res) => {
+    try {
+        await bdd.supprimerClient(req.body.email)
+        return res.redirect('/manage?message=Client supprimé')
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send('Erreur lors de la suppression')
+    }
+}
+
+export const modifier = async (req, res) => {
+    try {
+        const { email, nom, prenom, adresse } = req.body
+        await bdd.modifierClient({ email, nom, prenom, adresse })
+        return res.redirect('/manage?message=Client modifié')
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send('Erreur lors de la modification')
+    }
+}

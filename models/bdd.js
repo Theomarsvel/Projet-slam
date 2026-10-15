@@ -36,3 +36,15 @@ export const read_bdd = async () => {
         throw err;
     }
 };
+
+
+export async function supprimerClient(email) {
+    await pool.query('DELETE FROM clients WHERE EMAIL = ?', [email])
+}
+
+export async function modifierClient({ email, nom, prenom, adresse }) {
+    await pool.query(
+        'UPDATE clients SET NOM = ?, PRENOM = ?, ADRESSE = ? WHERE EMAIL = ?',
+        [nom, prenom, adresse, email]
+    )
+}

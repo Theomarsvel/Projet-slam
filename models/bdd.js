@@ -23,28 +23,26 @@ export const trouverParEmail = async (email) => {
     return rows[0]
 }
 
+// Lecture des clients SANS le mot de passe haché
 export const read_bdd = async () => {
     try {
         const [lignes] = await connexion.query(
-            'SELECT * FROM client'
-        );
-
-        console.log(lignes);
-        return lignes;
+            'SELECT Nom, Prenom, Email, Adresse_livraison FROM client ORDER BY Nom, Prenom'
+        )
+        return lignes
     } catch (err) {
-        console.error('Erreur SQL :', err);
-        throw err;
+        console.error('Erreur SQL :', err)
+        throw err
     }
-};
-
-
-export async function supprimerClient(email) {
-    await pool.query('DELETE FROM clients WHERE EMAIL = ?', [email])
 }
 
-export async function modifierClient({ email, nom, prenom, adresse }) {
-    await pool.query(
-        'UPDATE clients SET NOM = ?, PRENOM = ?, ADRESSE = ? WHERE EMAIL = ?',
+export const supprimerClient = async (email) => {
+    await connexion.execute('DELETE FROM client WHERE Email = ?', [email])
+}
+
+export const modifierClient = async ({ email, nom, prenom, adresse }) => {
+    await connexion.execute(
+        'UPDATE client SET Nom = ?, Prenom = ?, Adresse_livraison = ? WHERE Email = ?',
         [nom, prenom, adresse, email]
     )
 }

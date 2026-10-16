@@ -46,7 +46,7 @@
   <div class="conteneur">
     <h1>Gestion des utilisateurs</h1>
 
-    <% if (message) { %>
+    <% if (typeof message !== 'undefined' && message) { %>
       <div class="message"><%= message %></div>
     <% } %>
 
@@ -55,34 +55,32 @@
         <div class="vide">Aucun utilisateur.</div>
       <% } %>
 
-      <% clients.forEach(c => { %>
+      <% for (const c of clients) { %>
         <div class="ligne">
-          <div class="avatar"><%= (c.PRENOM || '?').charAt(0).toUpperCase() %></div>
+          <div class="avatar"><%= String(c.Prenom || '?').charAt(0).toUpperCase() %></div>
 
           <div class="infos">
-            <div class="prenom"><%= c.PRENOM %> <%= c.NOM %></div>
-            <div class="email"><%= c.EMAIL %></div>
+            <div class="prenom"><%= c.Prenom %> <%= c.Nom %></div>
+            <div class="email"><%= c.Email %></div>
           </div>
 
           <div class="actions">
-            <button class="btn-modifier"
-                    data-email="<%= c.EMAIL %>"
-                    data-nom="<%= c.NOM %>"
-                    data-prenom="<%= c.PRENOM %>"
-                    data-adresse="<%= c.ADRESSE %>">Modifier</button>
+            <button type="button" class="btn-modifier"
+                    data-email="<%= c.Email %>"
+                    data-nom="<%= c.Nom %>"
+                    data-prenom="<%= c.Prenom %>"
+                    data-adresse="<%= c.Adresse_livraison %>">Modifier</button>
 
-            <form method="post" action="/manage/supprimer"
-                  onsubmit="return confirm('Supprimer cet utilisateur ?')">
-              <input type="hidden" name="email" value="<%= c.EMAIL %>">
+            <form method="post" action="/manage/supprimer" class="form-suppr">
+              <input type="hidden" name="email" value="<%= c.Email %>">
               <button type="submit" class="btn-supprimer">Supprimer</button>
             </form>
           </div>
         </div>
-      <% }) %>
+      <% } %>
     </div>
   </div>
 
-  <!-- Fenêtre de modification -->
   <dialog id="fenetre">
     <form method="post" action="/manage/modifier">
       <h2 style="margin-top:0">Modifier l'utilisateur</h2>
@@ -107,20 +105,6 @@
     </form>
   </dialog>
 
-  <script>
-    const fenetre = document.getElementById('fenetre')
-
-    document.querySelectorAll('.btn-modifier').forEach(bouton => {
-      bouton.addEventListener('click', () => {
-        document.getElementById('f-email').value = bouton.dataset.email
-        document.getElementById('f-prenom').value = bouton.dataset.prenom
-        document.getElementById('f-nom').value = bouton.dataset.nom
-        document.getElementById('f-adresse').value = bouton.dataset.adresse
-        fenetre.showModal()
-      })
-    })
-
-    document.getElementById('annuler').addEventListener('click', () => fenetre.close())
-  </script>
+  <script type="module" src="/js/manage.js"></script>
 </body>
 </html>

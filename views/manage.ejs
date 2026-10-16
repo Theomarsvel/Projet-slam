@@ -1,84 +1,221 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gestion des utilisateurs</title>
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; color: #1f2937; }
-    .conteneur { max-width: 800px; margin: 0 auto; }
-    h1 { margin-top: 0; }
+    * {
+      box-sizing: border-box;
+    }
 
-    .message { background: #dcfce7; color: #166534; padding: .75rem 1rem; border-radius: 8px; margin-bottom: 1rem; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 2rem;
+      color: #1f2937;
+    }
 
-    .liste { background: white; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.1); overflow: hidden; }
-    .ligne { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid #e5e7eb; }
-    .ligne:last-child { border-bottom: none; }
+    .conteneur {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-    .avatar { width: 42px; height: 42px; border-radius: 50%; background: #4f46e5; color: white;
-              display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
-    .infos { flex: 1; min-width: 0; }
-    .prenom { font-weight: bold; }
-    .email { color: #6b7280; font-size: .9rem; overflow: hidden; text-overflow: ellipsis; }
+    h1 {
+      margin-top: 0;
+    }
 
-    .actions { display: flex; gap: .5rem; }
-    .actions form { margin: 0; }
-    button { border: none; border-radius: 6px; padding: .5rem .9rem; cursor: pointer; font-size: .9rem; }
-    .btn-modifier { background: #e0e7ff; color: #3730a3; }
-    .btn-supprimer { background: #fee2e2; color: #991b1b; }
-    .btn-modifier:hover { background: #c7d2fe; }
-    .btn-supprimer:hover { background: #fecaca; }
+    .message {
+      background: #dcfce7;
+      color: #166534;
+      padding: .75rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
 
-    .vide { padding: 2rem; text-align: center; color: #6b7280; }
+    .liste {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+      overflow: hidden;
+    }
 
-    dialog { border: none; border-radius: 12px; padding: 1.5rem; width: 90%; max-width: 420px; }
-    dialog::backdrop { background: rgba(0,0,0,.4); }
-    dialog label { display: block; margin-top: .75rem; font-size: .9rem; }
-    dialog input { width: 100%; padding: .5rem; margin-top: .25rem; border: 1px solid #d1d5db; border-radius: 6px; }
-    dialog input[readonly] { background: #f3f4f6; color: #6b7280; }
-    .boutons-dialog { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.25rem; }
-    .btn-annuler { background: #e5e7eb; }
-    .btn-valider { background: #4f46e5; color: white; }
+    .ligne {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .ligne:last-child {
+      border-bottom: none;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #4f46e5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .infos {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .prenom {
+      font-weight: bold;
+    }
+
+    .email {
+      color: #6b7280;
+      font-size: .9rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .actions {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .actions form {
+      margin: 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 6px;
+      padding: .5rem .9rem;
+      cursor: pointer;
+      font-size: .9rem;
+    }
+
+    .btn-modifier {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .btn-supprimer {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-modifier:hover {
+      background: #c7d2fe;
+    }
+
+    .btn-supprimer:hover {
+      background: #fecaca;
+    }
+
+    .vide {
+      padding: 2rem;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    dialog {
+      border: none;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 420px;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, .4);
+    }
+
+    dialog label {
+      display: block;
+      margin-top: .75rem;
+      font-size: .9rem;
+    }
+
+    dialog input {
+      width: 100%;
+      padding: .5rem;
+      margin-top: .25rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+    }
+
+    dialog input[readonly] {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .boutons-dialog {
+      display: flex;
+      justify-content: flex-end;
+      gap: .5rem;
+      margin-top: 1.25rem;
+    }
+
+    .btn-annuler {
+      background: #e5e7eb;
+    }
+
+    .btn-valider {
+      background: #4f46e5;
+      color: white;
+    }
   </style>
 </head>
+
 <body>
   <div class="conteneur">
     <h1>Gestion des utilisateurs</h1>
 
-    <% if (typeof message !== 'undefined' && message) { %>
-      <div class="message"><%= message %></div>
-    <% } %>
-
-    <div class="liste">
-      <% if (clients.length === 0) { %>
-        <div class="vide">Aucun utilisateur.</div>
+    <% if (typeof message !=='undefined' && message) { %>
+      <div class="message">
+        <%= message %>
+      </div>
       <% } %>
 
-      <% for (const c of clients) { %>
-        <div class="ligne">
-          <div class="avatar"><%= String(c.Prenom || '?').charAt(0).toUpperCase() %></div>
+        <div class="liste">
+          <% if (clients.length===0) { %>
+            <div class="vide">Aucun utilisateur.</div>
+            <% } %>
 
-          <div class="infos">
-            <div class="prenom"><%= c.Prenom %> <%= c.Nom %></div>
-            <div class="email"><%= c.Email %></div>
-          </div>
+              <% for (const c of clients) { %>
+                <div class="ligne">
+                  <div class="avatar">
+                    <%= String(c.Prenom || '?' ).charAt(0).toUpperCase() %>
+                  </div>
 
-          <div class="actions">
-            <button type="button" class="btn-modifier"
-                    data-email="<%= c.Email %>"
-                    data-nom="<%= c.Nom %>"
-                    data-prenom="<%= c.Prenom %>"
-                    data-adresse="<%= c.Adresse_livraison %>">Modifier</button>
+                  <div class="infos">
+                    <div class="prenom">
+                      <%= c.Prenom %>
+                        <%= c.Nom %>
+                    </div>
+                    <div class="email">
+                      <%= c.Email %>
+                    </div>
+                  </div>
 
-            <form method="post" action="/manage/supprimer" class="form-suppr">
-              <input type="hidden" name="email" value="<%= c.Email %>">
-              <button type="submit" class="btn-supprimer">Supprimer</button>
-            </form>
-          </div>
+                  <div class="actions">
+                    <button type="button" class="btn-modifier" data-email="<%= c.Email %>" data-nom="<%= c.Nom %>"
+                      data-prenom="<%= c.Prenom %>" data-adresse="<%= c.Adresse_livraison %>">Modifier</button>
+
+                    <form method="post" action="/manage/supprimer" class="form-suppr">
+                      <input type="hidden" name="email" value="<%= c.Email %>">
+                      <button type="submit" class="btn-supprimer">Supprimer</button>
+                    </form>
+                  </div>
+                </div>
+                <% } %>
         </div>
-      <% } %>
-    </div>
   </div>
 
   <dialog id="fenetre">
@@ -107,4 +244,5 @@
 
   <script type="module" src="/js/manage.js"></script>
 </body>
+
 </html>
